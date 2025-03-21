@@ -103,19 +103,18 @@ func handler(request events.LambdaFunctionURLRequest) (LambdaResponse, error) {
 
 		response = handleValidateInitData(initData, botID, expIn)
 
-		// Log the outgoing response
-		responseJSON, err := json.Marshal(response)
-		if err != nil {
-			log.Printf("Failed to serialize response: %v", err)
-		} else {
-			log.Printf("Outgoing response: %s", string(responseJSON))
-		}
 	default:
 		response = LambdaResponse{
 			StatusCode: 404,
 			Error:      "Not Found",
 		}
 	}
-
+	// Log the outgoing response
+	responseJSON, err := json.Marshal(response)
+	if err != nil {
+		log.Printf("Failed to serialize response: %v", err)
+	} else {
+		log.Printf("Outgoing response: %s", string(responseJSON))
+	}
 	return response, nil
 }
