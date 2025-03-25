@@ -18,6 +18,11 @@ type LambdaResponse struct {
 	Error      string      `json:"error,omitempty"`
 }
 
+type ValidationResponse struct {
+	Valid   bool   `json:"valid"`
+	Message string `json:"message"`
+}
+
 func main() {
 	lambda.Start(handler)
 }
@@ -56,7 +61,10 @@ func handleValidateInitData(initData string, botID int64, expIn time.Duration) L
 
 	return LambdaResponse{
 		StatusCode: 200,
-		Body:       "Validation successful",
+		Body: ValidationResponse{
+			Valid:   true,
+			Message: "Validation successful",
+		},
 	}
 }
 
